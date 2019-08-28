@@ -30,27 +30,38 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　echo [{on　off}][message] 
    　　Sample：@echo off / echo hello world
    　　在实际应用中我们会把这条命令和重定向符号（也称为管道符号，一般用> >> ）结合来实现输入一些命令到特定格式的文件中.这将在以后的例子中体现出来。
+   
 2. @ 命令
    表示不显示@后面的命令，在入侵过程中（例如使用批处理来格式化敌人的硬盘）自然不能让对方看到你使用的命令啦。
    　　Sample：@echo off 
    　　@echo Now initializing the program,please wait a minite... 
    　　@format X: /q/u/autoset (format 这个命令是不可以使用/y这个参数的，可喜的是微软留了个autoset这个参数给我们，效果和/y是一样的。)
+   
 3. Goto 命令
    指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。
    　　语法：
-   　　```goto label （label是参数，指定所要转向的批处理程序中的行。） 
+   
+   ```bat
+   goto label （label是参数，指定所要转向的批处理程序中的行。） 
    　　Sample： 
    　　if {%1}=={} goto noparms 
    　　if {%2}=={} goto noparms（如果这里的if、%1、%2你不明白的话，先跳过去，后面会有详细的解释。） 
    　　@Rem check parameters if null show usage 
    　　:noparms 
    　　echo Usage: monitor.bat ServerIP PortNumber 
-   　　goto end```
-   　　标签的名字可以随便起，但是最好是有意义的字母啦，字母前加个：用来表示这个字母是标签，goto命令就是根据这个：来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。
+   　　goto end
+   　
+   ```
+   
+   
+   
+   　标签的名字可以随便起，但是最好是有意义的字母啦，字母前加个：用来表示这个字母是标签，goto命令就是根据这个：来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。
+   
 4. Rem 命令
    注释命令，在C语言中相当与/*--------*/,它并不会被执行，只是起一个注释的作用，便于别人阅读和你自己日后修改。
    　　Rem Message 
    　　Sample：@Rem Here is the description.?
+
 5. Pause 命令
    运行 Pause 命令时，将显示下面的消息：
    　　Press any key to continue . . . 
@@ -62,6 +73,7 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　pause 
    　　goto begin
    　　在这个例子中，驱动器 A 中磁盘上的所有文件均复制到d:\back中。显示的注释提示您将另一张磁盘放入驱动器 A 时，pause 命令会使程序挂起，以便您更换磁盘，然后按任意键继续处理。
+
 6. Call 命令
    从一个批处理程序调用另一个批处理程序，并且不终止父批处理程序。call 命令接受用作调用目标的标签。如果在脚本或批处理文件外使用 Call，它将不会在命令行起作用。
    　　语法
@@ -69,6 +81,7 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　参数
    　　[Drive:}[Path] FileName
    　　指定要调用的批处理程序的位置和名称。filename 参数必须具有 .bat 或 .cmd 扩展名。
+
 7. start 命令
    调用外部程序，所有的DOS命令和命令行程序都可以由start命令来调用。
    　　入侵常用参数：
@@ -79,6 +92,7 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　WAIT 启动应用程序并等候它结束 
    　　parameters 这些为传送到命令/程序的参数
    　　执行的应用程序是 32-位 GUI 应用程序时，CMD.EXE 不等应用程序终止就返回命令提示。如果在命令脚本内执行，该新行为则不会发生。
+
 8. choice 命令   #这一个命令还不会用，上网再找找资料#
    choice 使用此命令可以让用户输入一个字符，从而运行不同的命令。使用时应该加/c:参数，c:后应写提示可输入的字符，之间无空格。它的返回码为1234……
    　　如: choice /c:dme defrag,mem,end
