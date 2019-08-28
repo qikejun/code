@@ -38,14 +38,14 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
 3. Goto 命令
    指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。
    　　语法：
-   　　goto label （label是参数，指定所要转向的批处理程序中的行。） 
+   　　```goto label （label是参数，指定所要转向的批处理程序中的行。） 
    　　Sample： 
    　　if {%1}=={} goto noparms 
    　　if {%2}=={} goto noparms（如果这里的if、%1、%2你不明白的话，先跳过去，后面会有详细的解释。） 
    　　@Rem check parameters if null show usage 
    　　:noparms 
    　　echo Usage: monitor.bat ServerIP PortNumber 
-   　　goto end
+   　　goto end```
    　　标签的名字可以随便起，但是最好是有意义的字母啦，字母前加个：用来表示这个字母是标签，goto命令就是根据这个：来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。
 4. Rem 命令
    注释命令，在C语言中相当与/*--------*/,它并不会被执行，只是起一个注释的作用，便于别人阅读和你自己日后修改。
