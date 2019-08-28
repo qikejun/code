@@ -1,46 +1,61 @@
 ## bat命令
 
 echo、@、call、pause、rem(小技巧：用::代替rem)是批处理文件最常用的几个命令，我们就从他们开始学起。 
-echo 表示显示此命令后的字符 
-echo off 表示在此语句后所有运行的命令都不显示命令行本身 
-@与echo off相象，但它是加在每个命令行的最前面，表示运行时不显示这一行的命令行（只能影响当前行）。 
-call 调用另一个批处理文件（如果不用call而直接调用别的批处理文件，那么执行完那个批处理文件后将无法返回当前文件并执行当前文件的后续命令）。 
-pause 运行此句会暂停批处理的执行并在屏幕上显示Press any key to continue...的提示，等待用户按任意键后继续 
-rem 表示此命令后的字符为解释行（注释），不执行，只是给自己今后参考用的（相当于程序中的注释）。
-例1：用edit编辑a.bat文件，输入下列内容后存盘为c:\a.bat，执行该批处理文件后可实现：将根目录中所有文件写入 a.txt中，启动UCDOS，进入WPS等功能。
-　　批处理文件的内容为: 　　　　　　　 命令注释：
-　　　　@echo off　　　　　　　　　　　不显示后续命令行及当前命令行
-　　　　dir c:\*.* >a.txt　　　　　　　将c盘文件列表写入a.txt 
-　　　　call c:\ucdos\ucdos.bat　　　　调用ucdos 
-　　　　echo 你好 　　　　　　　　　　 显示"你好" 
-　　　　pause 　　　　　　　　　　　　 暂停,等待按键继续 
-　　　　rem 准备运行wps 　　　　　　　 注释：准备运行wps 
-　　　　cd ucdos　　　　　　　　　　　 进入ucdos目录 
-　　　　wps 　　　　　　　　　　　　　 运行wps　
+
+1. echo 表示显示此命令后的字符 
+
+2. echo off 表示在此语句后所有运行的命令都不显示命令行本身 
+
+3. @与echo off相象，但它是加在每个命令行的最前面，表示运行时不显示这一行的命令行（只能影响当前行）。 
+
+4. call 调用另一个批处理文件（如果不用call而直接调用别的批处理文件，那么执行完那个批处理文件后将无法返回当
+
+5. 文件并执行当前文件的后续命令）。 
+
+6. pause 运行此句会暂停批处理的执行并在屏幕上显示Press any key to continue...的提示，等待用户按任意键后继续 
+
+7. rem 表示此命令后的字符为解释行（注释），不执行，只是给自己今后参考用的（相当于程序中的注释）。
+
+   ```bat
+   例1：用edit编辑a.bat文件，输入下列内容后存盘为c:\a.bat，执行该批处理文件后可实现：将根目录中所有文件写入 a.txt中，启动UCDOS，进入WPS等功能。
+   　　批处理文件的内容为: 　　　　　　　 命令注释：
+   　　　　@echo off　　　　　　　　　　　不显示后续命令行及当前命令行
+   　　　　dir c:*.* >a.txt　　　　　　　将c盘文件列表写入a.txt 
+   　　　　call c:\ucdos\ucdos.bat　　　　调用ucdos 
+   　　　　echo 你好 　　　　　　　　　　 显示"你好" 
+   　　　　pause 　　　　　　　　　　　　 暂停,等待按键继续 
+   　　　　rem 准备运行wps 　　　　　　　 注释：准备运行wps 
+   　　　　cd ucdos　　　　　　　　　　　 进入ucdos目录 
+   　　　　wps 　　　　　　　　　　　　　 运行wps　
+   ```
 
 ## bat命令的使用
-
-
 
 　　### 一. 简单批处理内部命令简介 
 
 1. Echo 命令
    打开回显或关闭请求回显功能，或显示消息。如果没有任何参数，echo 命令将显示当前回显设置。
-   　　语法
-   　　echo [{on　off}][message] 
+   
+   ```bat
+   语法
+   　　echo {on　off} 
    　　Sample：@echo off / echo hello world
    　　在实际应用中我们会把这条命令和重定向符号（也称为管道符号，一般用> >> ）结合来实现输入一些命令到特定格式的文件中.这将在以后的例子中体现出来。
+   ```
    
 2. @ 命令
    表示不显示@后面的命令，在入侵过程中（例如使用批处理来格式化敌人的硬盘）自然不能让对方看到你使用的命令啦。
-   　　Sample：@echo off 
+
+   ```bat
+   　Sample：@echo off 
    　　@echo Now initializing the program,please wait a minite... 
    　　@format X: /q/u/autoset (format 这个命令是不可以使用/y这个参数的，可喜的是微软留了个autoset这个参数给我们，效果和/y是一样的。)
-   
+   ```
+
 3. Goto 命令
    指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。
    　　语法：
-   
+
    ```bat
    goto label （label是参数，指定所要转向的批处理程序中的行。） 
    　　Sample： 
@@ -52,39 +67,50 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　goto end
    　
    ```
+
    
-   
-   
+
    　标签的名字可以随便起，但是最好是有意义的字母啦，字母前加个：用来表示这个字母是标签，goto命令就是根据这个：来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。
-   
+
 4. Rem 命令
    注释命令，在C语言中相当与/*--------*/,它并不会被执行，只是起一个注释的作用，便于别人阅读和你自己日后修改。
-   　　Rem Message 
+
+   ```bat
+   Rem Message 
    　　Sample：@Rem Here is the description.?
+   ```
 
 5. Pause 命令
+
+   ```bat
    运行 Pause 命令时，将显示下面的消息：
    　　Press any key to continue . . . 
    　　Sample： 
    　　@echo off 
    　　:begin 
-   　　copy a:*.* d：\back 
+   　　copy a:. d：\back 
    　　echo Please put a new disk into driver A 
    　　pause 
    　　goto begin
    　　在这个例子中，驱动器 A 中磁盘上的所有文件均复制到d:\back中。显示的注释提示您将另一张磁盘放入驱动器 A 时，pause 命令会使程序挂起，以便您更换磁盘，然后按任意键继续处理。
+   ```
 
 6. Call 命令
    从一个批处理程序调用另一个批处理程序，并且不终止父批处理程序。call 命令接受用作调用目标的标签。如果在脚本或批处理文件外使用 Call，它将不会在命令行起作用。
-   　　语法
-   　　call [[Drive:][Path] FileName [BatchParameters]][:label [arguments]]
+
+   ```bat
+   　语法
+   　　call [Drive:][Path] FileName [BatchParameters]]
    　　参数
    　　[Drive:}[Path] FileName
    　　指定要调用的批处理程序的位置和名称。filename 参数必须具有 .bat 或 .cmd 扩展名。
+   ```
 
 7. start 命令
    调用外部程序，所有的DOS命令和命令行程序都可以由start命令来调用。
-   　　入侵常用参数：
+
+   ```bat
+   入侵常用参数：
    　　MIN 开始时窗口最小化 
    　　SEPARATE 在分开的空间内开始 16 位 Windows 程序 
    　　HIGH 在 HIGH 优先级类别开始应用程序 
@@ -92,8 +118,11 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　WAIT 启动应用程序并等候它结束 
    　　parameters 这些为传送到命令/程序的参数
    　　执行的应用程序是 32-位 GUI 应用程序时，CMD.EXE 不等应用程序终止就返回命令提示。如果在命令脚本内执行，该新行为则不会发生。
+   ```
 
 8. choice 命令   #这一个命令还不会用，上网再找找资料#
+
+   ```bat
    choice 使用此命令可以让用户输入一个字符，从而运行不同的命令。使用时应该加/c:参数，c:后应写提示可输入的字符，之间无空格。它的返回码为1234……
    　　如: choice /c:dme defrag,mem,end
    　　将显示
@@ -102,26 +131,28 @@ rem 表示此命令后的字符为解释行（注释），不执行，只是给�
    　　Sample.bat的内容如下: 
    　　@echo off 
    　　choice /c:dme defrag,mem,end
-
-　
+   ```
 
 ### 批处理文件的参数
 
 批处理文件还可以像C语言的函数一样使用参数（相当于DOS命令的命令行参数），这需要用到一个参数表示符“%”。
 %[1-9]表示参数，参数是指在运行批处理文件时在文件名后加的以空格（或者Tab）分隔的字符串。变量可以从%0到%9，%0表示批处理命令本身，其它参数字符串用%1到%9顺序表示。
+
+```bat
 例2：C:根目录下有一批处理文件名为f.bat，内容为：
 @echo off
 format %1
-如果执行C:\>f a:
+如果执行C:>f a:
 那么在执行f.bat时，%1就表示a:，这样format %1就相当于format a:，于是上面的命令运行时实际执行的是format a:
 例3：C:根目录下一批处理文件名为t.bat，内容为:
 @echo off
 type %1 
 type %2
-那么运行C:\>t a.txt b.txt 
+那么运行C:>t a.txt b.txt 
 %1 : 表示a.txt
 %2 : 表示b.txt
 于是上面的命令将顺序地显示a.txt和b.txt文件的内容。
+```
 
 ### 特殊命令
 
@@ -149,11 +180,13 @@ if goto choice for是批处理文件中比较高级的命令，如果这几个�
 
 ​	批处理文件运行到这里将跳到goto所指定的标号(标号即label，标号用:后跟标准字符串来定义)处，goto语句一般与if配合使用，根据不同的条件来执行不同的命令组。
 
+```bat
 如:
 goto end
 :end 
 echo this is the end
 标号用“:字符串”来定义，标号所在行不被执行。
+```
 
 #### 三、choice 
 
@@ -166,7 +199,9 @@ CHOICE [/C choices] [/N] [/CS] [/T timeout /D choice] [/M text]
 
     该工具允许用户从选择列表选择一个项目并返回所选项目的索引。
 参数列表:
-   /C     choices        指定要创建的选项列表。默认列表是 "YN"。
+
+```bat
+ /C     choices        指定要创建的选项列表。默认列表是 "YN"。
    /N                   在提示符中隐藏选项列表。提示前面的消息得到显示，
                        选项依旧处于启用状态。
    /CS                  允许选择分大小写的选项。在默认情况下，这个工具
@@ -179,8 +214,12 @@ CHOICE [/C choices] [/N] [/CS] [/T timeout /D choice] [/M text]
    /M     text           指定提示之前要显示的消息。如果没有指定，工具只
                        显示提示。
    /?                   显示帮助消息。
+```
+
    注意:
-   ERRORLEVEL 环境变量被设置为从选择集选择的键索引。列出的第一个选
+
+```bat
+ERRORLEVEL 环境变量被设置为从选择集选择的键索引。列出的第一个选
    择返回 1，第二个选择返回 2，等等。如果用户按的键不是有效的选择，
    该工具会发出警告响声。如果该工具检测到错误状态，它会返回 255 的
    ERRORLEVEL 值。如果用户按 Ctrl+Break 或 Ctrl+C 键，该工具会返回 0
@@ -195,7 +234,9 @@ CHOICE [/C choices] [/N] [/CS] [/T timeout /D choice] [/M text]
 如果我运行命令：CHOICE /C YNC /M "确认请按 Y，否请按 N，或者取消请按 C。"
 屏幕上会显示：
 确认请按 Y，否请按 N，或者取消请按 C。 [Y,N,C]?
+```
 
+```bat
 例：test.bat的内容如下（注意，用if errorlevel判断返回值时，要按返回值从高到低排列）: 
 @echo off 
 choice /C dme /M "defrag,mem,end"
@@ -211,81 +252,89 @@ goto end
 :end 
 echo good bye
 此批处理运行后，将显示“defrag,mem,end[D,M,E]?” ，用户可选择d m e ，然后if语句根据用户的选择作出判断，d表示执行标号为defrag的程序段，m表示执行标号为mem的程序段，e表示执行标号为end的程序段，每个程序段最后都以goto end将程序跳到end标号处，然后程序将显示good bye，批处理运行结束。
+```
 
 #### 四、for 循环命令
 
 只要条件符合，它将多次执行同一命令。
 语法：
 
+```bat
 对一组文件中的每一个文件执行某个特定命令。
 FOR %%variable IN (set) DO command [command-parameters]
 %%variable   指定一个单一字母可替换的参数。
 (set)       指定一个或一组文件。可以使用通配符。
 command     指定对每个文件执行的命令。
-command-parameters
+command-parameters 为特定命令指定参数或命令行开关。
 
-             为特定命令指定参数或命令行开关。
-例如一个批处理文件中有一行: 
+
+例如：一个批处理文件中有一行: 
 for %%c in (*.bat *.txt) do type %%c
 则该命令行会显示当前目录下所有以bat和txt为扩展名的文件的内容。
+```
 
 # 批处理示例
 
 ## 1、IF-EXIST
 
-
-
 判断当前目录下的文件
 
+```bat
 1)
 首先用记事本在C:\建立一个test1.bat批处理文件，文件内容如下： 
 @echo off 
 IF EXIST \AUTOEXEC.BAT TYPE \AUTOEXEC.BAT 
 IF NOT EXIST \AUTOEXEC.BAT ECHO \AUTOEXEC.BAT does not exist
 然后运行它：
-C:\>TEST1.BAT
+C:>TEST1.BAT
 如果C:\存在AUTOEXEC.BAT文件，那么它的内容就会被显示出来，如果不存在，批处理就会提示你该文件不存在。
+
 2)
 接着再建立一个test2.bat文件，内容如下： 
 @ECHO OFF 
 IF EXIST \%1 TYPE \%1 
 IF NOT EXIST \%1 ECHO \%1 does not exist
 执行: 
-C:\>TEST2 AUTOEXEC.BAT 
+C:>TEST2 AUTOEXEC.BAT 
 该命令运行结果同上。
 说明： 
 (1) IF EXIST 是用来测试文件是否存在的，格式为 
 IF EXIST [路径+文件名] 命令 
 (2) test2.bat文件中的%1是参数，DOS允许传递9个批参数信息给批处理文件，分别为%1~%9(%0表示test2命令本身) ，这有点象编程中的实参和形参的关系，%1是形参，AUTOEXEC.BAT是实参。
+
 3) 更进一步的，建立一个名为TEST3.BAT的文件，内容如下： 
 @echo off
 IF "%1" == "A" ECHO XIAO 
 IF "%2" == "B" ECHO TIAN 
 IF "%3" == "C" ECHO XIN
 如果运行：
-C:\>TEST3 A B C 
+C:>TEST3 A B C 
 屏幕上会显示:
 XIAO
 TIAN
 XIN
 如果运行：
-C:\>TEST3 A B 
+C:>TEST3 A B 
 屏幕上会显示
 XIAO
 TIAN
 在这个命令执行过程中，DOS会将一个空字符串指定给参数%3。
+```
 
 ## 2、IF-ERRORLEVEL
 
+```bat
 建立TEST4.BAT，内容如下：
+
 @ECHO OFF 
 XCOPY C:\AUTOEXEC.BAT D:IF ERRORLEVEL 1 ECHO 文件拷贝失败 
 IF ERRORLEVEL 0 ECHO 成功拷贝文件
 然后执行文件:
-C:\>TEST4
+C:>TEST4
 如果文件拷贝成功，屏幕就会显示“成功拷贝文件”，否则就会显示“文件拷贝失败”。
 IF ERRORLEVEL 是用来测试它的上一个DOS命令的返回值的，注意只是上一个命令的返回值，而且返回值必须依照从大到小次序顺序判断。
 因此下面的批处理文件是错误的：
+
 @ECHO OFF 
 XCOPY C:\AUTOEXEC.BAT D:\ 
 IF ERRORLEVEL 0 ECHO 成功拷贝文件 
@@ -300,29 +349,34 @@ IF ERRORLEVEL 4 ECHO 拷贝过程中写盘错误
 拷贝过程中写盘错误
 都将显示出来。
 以下就是几个常用命令的返回值及其代表的意义： 
+
 backup 
 0 备份成功 
 1 未找到备份文件 
 2 文件共享冲突阻止备份完成 
 3 用户用ctrl-c中止备份 
 4 由于致命的错误使备份操作中止
+
 diskcomp 
 0 盘比较相同 
 1 盘比较不同 
 2 用户通过ctrl-c中止比较操作 
 3 由于致命的错误使比较操作中止 
 4 预置错误中止比较
+
 diskcopy 
 0 盘拷贝操作成功 
 1 非致命盘读/写错 
 2 用户通过ctrl-c结束拷贝操作 
 3 因致命的处理错误使盘拷贝中止 
 4 预置错误阻止拷贝操作
+
 format 
 0 格式化成功 
 3 用户通过ctrl-c中止格式化处理 
 4 因致命的处理错误使格式化中止 
 5 在提示“proceed with format（y/n）?”下用户键入n结束
+
 xcopy 
 0 成功拷贝文件 
 1 未找到拷贝文件 
@@ -330,26 +384,29 @@ xcopy
 4 预置错误阻止文件拷贝操作 
 5 拷贝过程中写盘错误
 3、IF STRING1 == STRING2
+
 建立TEST5.BAT，文件内容如下： 
 @echo off 
 IF "%1" == "A" formAT A:
 执行： 
-C:\>TEST5 A 
+C:>TEST5 A 
 屏幕上就出现是否将A:盘格式化的内容。
 注意：为了防止参数为空的情况，一般会将字符串用双引号（或者其它符号，注意不能使用保留符号）括起来。
-如：if [%1]==[A] 或者 if %1*==A*
+如：if [%1]==[A] 或者 if %1==A
+
 5、GOTO
 建立TEST6.BAT，文件内容如下： 
 @ECHO OFF 
-IF EXIST C:\AUTOEXEC.BAT GOTO _COPY 
+IF EXIST C:\AUTOEXEC.BAT GOTO COPY 
 GOTO _DONE
-:_COPY 
+:COPY 
 COPY C:\AUTOEXEC.BAT D:\ 
 :_DONE
 注意： 
 (1) 标号前是ASCII字符的冒号":"，冒号与标号之间不能有空格。 
 (2) 标号的命名规则与文件名的命名规则相同。
 (3) DOS支持最长八位字符的标号，当无法区别两个标号时，将跳转至最近的一个标号。
+
 6、FOR
 建立C:\TEST7.BAT，文件内容如下： 
 @ECHO OFF 
@@ -357,3 +414,4 @@ FOR %C IN (*.BAT *.TXT *.SYS) DO TYPE %C
 运行： 
 C:>TEST7
 执行以后，屏幕上会将C:盘根目录下所有以BAT、TXT、SYS为扩展名的文件内容显示出来（不包括隐藏文件）。
+```
